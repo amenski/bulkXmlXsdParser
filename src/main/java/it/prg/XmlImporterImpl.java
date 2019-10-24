@@ -54,10 +54,12 @@ public class XmlImporterImpl {
 	}
 	
 	//change to Map if required to know the dir
-	public void handleProccessed(String dir, String file) {
+	public void handleProccessed(Object obj, String dir, String file) {
 		String methodName = "handleProccessed()";
 		logger.info("{} unmarshalling file [file={}] finished.", methodName, file);
 		filesStatusMap.get(PROCESSED).add(file);
+		
+		//map the object to an entity or do something with it
 	}
 
 	public void handleFailed(String dir, String file) {
@@ -76,8 +78,7 @@ public class XmlImporterImpl {
 				currentFile = file;
 				// unmarshaling code here
 				Object obj = marshaller.unmarshal(new StreamSource(file));
-				logger.info("Unmarshalled obj is: " + obj.toString());
-				handleProccessed(dir, currentFile);
+				handleProccessed(obj, dir, currentFile);
 			}
 
 		} catch (Exception e) {
